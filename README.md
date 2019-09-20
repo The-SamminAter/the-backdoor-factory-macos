@@ -1,4 +1,4 @@
-# Re-wrote install.sh to work on macOS, install a Python/pip 2.7 SSL fix, and install all required packages, while checking whether they exist first
+# Re-wrote install.sh to work on macOS, install a Python/pip 2.7 SSL fix, and install all required packages, after checking whether they exist
 ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 # THE BACKDOOR FACTORY IS NO LONGER MAINTAINED OR SUPPORTED
 
