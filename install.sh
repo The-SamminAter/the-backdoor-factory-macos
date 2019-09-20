@@ -99,13 +99,13 @@ fi
 if [ -f /usr/local/Cellar/capstone/4.0.1/bin/cstool ]; then
 	echo "(brew) capstone is already installed"
 else
-	echo "Capstone does not appear to have been installed (using Homebrew)"
+	echo "capstone does not appear to have been installed (using Homebrew)"
 	echo "Has it been installed from elsewhere? [Y/n]"
 	read -p "If it has, Homebrew won't install capstone" answer;
 	do
 	case $answer in
 		[yY]* )
-		echo "Capstone has been installed from elsewhere"
+		echo "capstone has been installed from elsewhere"
 		echo "Moving on"
 		;;	
 		[nN]* )
