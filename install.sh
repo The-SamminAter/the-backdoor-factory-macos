@@ -1,4 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash
+#used to be this: #!/usr/bin/env bash
 
 #A fixed backdoor-factory installer"
 #Thank you stackexchange
@@ -40,7 +41,7 @@ if [ -f /usr/local/bin/brew ]; then
 	echo "Homebrew is already installed"
 else
 	read -p "Homebrew is not installed. Would you like to install Homebrew? [Y/n]" answer;
-	do
+	#do
 	case $answer in
 		[yY]* )
 		echo "Attmepting to install Homebrew"
@@ -57,7 +58,7 @@ echo "Checking for Anaconda, as it needs to not be present"
 if [ -f /Applications/Anaconda ]; then
 	echo "Anaconda is installed"
 	read -p "Would you like to remove Anaconda? [Y/n]" answer;
-	do
+	#do
 	case $answer in
 		[yY]* )
 		echo "Attmepting to remove Anaconda"
@@ -102,7 +103,7 @@ else
 	echo "capstone does not appear to have been installed (using Homebrew)"
 	echo "Has it been installed from elsewhere? [Y/n]"
 	read -p "If it has, Homebrew won't install capstone" answer;
-	do
+	#do
 	case $answer in
 		[yY]* )
 		echo "capstone has been installed from elsewhere"
@@ -121,7 +122,7 @@ else
 	echo "libgsf does not appear to have been installed (using Homebrew)"
 	echo "Has it been installed from elsewhere? [Y/n]"
 	read -p "If it has, Homebrew won't install libgsf" answer;
-	do
+	#do
 	case $answer in
 		[yY]* )
 		echo "libgsf has been installed from elsewhere"
@@ -167,7 +168,7 @@ pip install --update pip
 echo ""
 echo "Installing Python packages"
 read -p "Would you like to install these from online [1] or from local packages [2]?" answer;
-do
+#do
 case $answer in
 	"1")
 		echo "Installing required packages from online"
@@ -192,7 +193,7 @@ case $answer in
 		echo ""
 		echo "requests[security] packages can not be installed offline"
 		read -p "Would you like to install requests[security] from online? [Y/n]" answer;
-		do
+		#do
 		case $answer in
 			[yY]* )
 			echo "Installing requests[security]"
@@ -236,4 +237,3 @@ clang -Wall -O2  -o appack appack.o ../lib/macho64/aplib.a -v
 cp ./appack /usr/local/bin/appack
 
 fi
-
