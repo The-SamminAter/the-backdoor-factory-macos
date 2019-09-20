@@ -1,4 +1,5 @@
-
+# Re-wrote install.sh to work on macOS, install a Python/pip 2.7 SSL fix, and install all required packages, while checking whether they exist first
+–––––––––––––––––––––––––––––––––––––––––––––––––––––––––––
 # THE BACKDOOR FACTORY IS NO LONGER MAINTAINED OR SUPPORTED
 
 BLOG: http://secureallthethings.blogspot.com/2017/08/closing-door-end-of-backdoor-factory.html 
