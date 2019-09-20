@@ -170,7 +170,7 @@ read -p "Would you like to install these from online [1] or from local packages 
 do
 case $answer in
 	"1")
-		echo "Installing required packages from online (using pip)"
+		echo "Installing required packages from online"
 		echo "This will require your password"
 		sudo -H pip install requests
 		sudo -H pip install requests[security]
