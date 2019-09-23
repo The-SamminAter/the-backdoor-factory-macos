@@ -24,16 +24,13 @@ if [ $? -eq 0 ]; then
 #donesetup check
 if [ ! -f donesetup ]; then
 #pre donesetup
+echo ""
 echo "A couple of things have to be installed to run/build this"
 echo "Checking if the required tools are installed"
-echo ""
+echo
 #Xcode command-line tools check
-echo "Checking for Xcode command-line tools"
-if [ -f /dev/null ]; then
-	echo "Xcode command-line tools are already installed"
-else
-	echo "Xcode command-line tools not found. Attmepting to install"
-	xcode-select --install
+echo "Checking for Xcode command-line tools. If not present, they will be installed"
+xcode-select --install
 fi
 #Homebrew check
 echo "Checking for Homebrew"
@@ -51,10 +48,10 @@ else
 		echo "Homebrew needs to be installed"
 		python -mwebbrowser https://brew.sh
 		exit 1
-	fi
+	esac
 fi
 #Anaconda check
-echo "Checking for Anaconda, as it needs to not be present"
+echo "Checking for Anaconda, as it needs to not be"
 if [ -f /Applications/Anaconda ]; then
 	echo "Anaconda is installed"
 	read -p "Would you like to remove Anaconda? [Y/n]" answer;
@@ -62,7 +59,7 @@ if [ -f /Applications/Anaconda ]; then
 	case $answer in
 		[yY]* )
 		echo "Attmepting to remove Anaconda"
-		echo ""
+		echo
 		echo "Installing Anaconda-clean"
 		conda install anaconda-clean
 		echo "Uninstalling Anaconda"
@@ -75,12 +72,12 @@ if [ -f /Applications/Anaconda ]; then
 		[nN]* )
 		echo "Anaconda needs to be removed, as it'll screw with pip/python"
 		exit 1
-	fi
+	esac
 else
 	echo "Anaconda isn't installed"
 fi
 #Brew-installable tools check
-echo ""
+echo
 echo "Checking for required brew-installable tools"
 
 if [ -f /usr/local/bin/autoconf ]; then
@@ -112,7 +109,7 @@ else
 		[nN]* )
 		echo "Attmepting to install capstone"
 		brew install capstone
-	fi
+	esac
 fi
 
 #I only know libgsf's brew dir
@@ -131,15 +128,21 @@ else
 		[nN]* )
 		echo "Attmepting to install libgsf"
 		brew install libgsf
-	fi
+	esac
 fi
 
 if [ -f /usr/local/bin/glibtoolize ]; then
 	echo "libtool is already installed"
-	sudo ln -s /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
 else
 	echo "libtool is not installed. Attmepting to install"
 	brew install libtool
+fi
+
+#libtoolize link check
+if [ -f /usr/local/bin/libtoolize ]; then
+	printf ""
+else
+	echo "Your password is required to create a glibtoolize link in /usr/local/bin/"
 	sudo ln -s /usr/local/bin/glibtoolize /usr/local/bin/libtoolize
 fi
 
@@ -150,7 +153,7 @@ else
 	brew install osslsigncode
 fi
 #Python/pip fix 
-echo ""
+echo
 echo "Installing Python/pip fix"
 echo "This will require your password"
 #Test if fix works
@@ -161,61 +164,62 @@ sudo -H pip install python-fix/pyOpenSSL-19.0.0-py2.py3-none-any.whl
 sudo -H pip install python-fix/six-1.12.0-py2.py3-none-any.whl
 echo "Python/pip fix installed"
 #Update pip
-echo ""
+echo
 echo "Updating pip"
 pip install --update pip
 #Python requirement instalation
-echo ""
+echo
 echo "Installing Python packages"
 read -p "Would you like to install these from online [1] or from local packages [2]?" answer;
 #do
 case $answer in
 	"1")
-		echo "Installing required packages from online"
-		echo "This will require your password"
-		sudo -H pip install requests
-		sudo -H pip install requests[security]
-		sudo -H pip install pefile
-		sudo -H pip install capstone
-		;;
+	echo "Installing required packages from online"
+	echo "This will require your password"
+	sudo -H pip install requests
+	sudo -H pip install requests[security]
+	sudo -H pip install pefile
+	sudo -H pip install capstone
+	;;
 	"2")
-		echo "Installing local required packages"
-		echo "This will require your password"
-		echo ""
-		#requests and requests[security]
-		echo "Installing packages for requests"
-		sudo -H pip install python-packages/requests/certifi-2019.9.11-py2.py3-none-any.whl
-		sudo -H pip install python-packages/requests/chardet-3.0.4-py2.py3-none-any.whl
-		sudo -H pip install python-packages/requests/idna-2.8-py2.py3-none-any.whl
-		sudo -H pip install python-packages/requests/requests-2.22.0-py2.py3-none-any.whl
-		sudo -H pip install python-packages/requests/urllib3-1.25.4-py2.py3-none-any.whl
-		#requests[security]
-		echo ""
-		echo "requests[security] packages can not be installed offline"
-		read -p "Would you like to install requests[security] from online? [Y/n]" answer;
-		#do
-		case $answer in
-			[yY]* )
-			echo "Installing requests[security]"
-			echo "You may be asked for your password"
-			sudo -H pip install requests[security]
-			;;
-			[nN]* )
-			echo "Ok, requests[security] won't be installed"
-		fi
-		#capstone
-		echo ""
-		echo "Installing package for capstone"
-		sudo -H pip install python-packages/capstone/capstone-4.0.1.tar.gz
-		#pefile
-		echo ""
-		echo "Installing packages for pefile"
-		sudo -H pip install python-packages/pefile/future-0.17.1.tar.gz
-		sudo -H pip install python-packages/pefile/pefile-2019.4.18.tar.gz	
-		#done packages
-		echo ""
-		echo "Done installing packages"
-		echo ""
+	echo "Installing local required packages"
+	echo "This will require your password"
+	echo
+	#requests and requests[security]
+	echo "Installing packages for requests"
+	sudo -H pip install python-packages/requests/certifi-2019.9.11-py2.py3-none-any.whl
+	sudo -H pip install python-packages/requests/chardet-3.0.4-py2.py3-none-any.whl
+	sudo -H pip install python-packages/requests/idna-2.8-py2.py3-none-any.whl
+	sudo -H pip install python-packages/requests/requests-2.22.0-py2.py3-none-any.whl
+	sudo -H pip install python-packages/requests/urllib3-1.25.4-py2.py3-none-any.whl
+	#requests[security]
+	echo
+	echo "requests[security] packages can not be installed offline"
+	read -p "Would you like to install requests[security] from online? [Y/n]" answer;
+	#do
+	case $answer in
+		[yY]* )
+		echo "Installing requests[security]"
+		echo "You may be asked for your password"
+		sudo -H pip install requests[security]
+		;;
+		[nN]* )
+		echo "Ok, requests[security] won't be installed"
+	esac
+	#capstone
+	echo
+	echo "Installing package for capstone"
+	sudo -H pip install python-packages/capstone/capstone-4.0.1.tar.gz
+	#pefile
+	echo
+	echo "Installing packages for pefile"
+	sudo -H pip install python-packages/pefile/future-0.17.1.tar.gz
+	sudo -H pip install python-packages/pefile/pefile-2019.4.18.tar.gz	
+#done packages
+echo
+echo "Done installing packages"
+echo
+esac
 #create donesetup
 touch donesetup 
 #else for donesetup
@@ -235,5 +239,7 @@ cd ./aPLib/example/
 clang -c -I../lib/macho64 -Wall -O2  -o appack.o appack.c -v 
 clang -Wall -O2  -o appack appack.o ../lib/macho64/aplib.a -v 
 cp ./appack /usr/local/bin/appack
-
+#first if else
+else
+	echo "This script can't be run"
 fi
